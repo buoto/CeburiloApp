@@ -1,3 +1,6 @@
+Ceburilo App [![Build Status](https://travis-ci.org/buoto/CeburiloApp.svg?branch=master)](https://travis-ci.org/buoto/CeburiloApp)
+========
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
