@@ -1,4 +1,4 @@
-import Foo from '/app/components/Foo';
+import Foo from '/app/screens/Foo';
 
 export default {
   Home: { screen: Foo },
