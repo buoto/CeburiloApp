@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "babel-root-slash-import": "^1.1.0",
     "jest": "^22.4.2",
     "jest-react-native": "^18.0.0",
     "react-test-renderer": "16.2.0"
@@ -11,6 +12,7 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
+    "log-android": "react-native log-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js"
   },
