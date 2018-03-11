@@ -17,7 +17,7 @@ const navigatorStyle = {
   tabBarBackgroundColor: 'white',
   topBarElevationShadowEnabled: false,
   navBarHideOnScroll: true,
-  tabBarHidden: true,
+  tabBarHidden: false,
   drawUnderTabBar: true,
 };
 
@@ -31,7 +31,16 @@ Navigation.startTabBasedApp({
       screen: 'ceburilo.App',
       navigatorStyle,
       //icon: iconsMap['ios-film'],
-      icon: require('ceburilo.png'),
+      icon: require('./ceburilo.png'),
+      //selectedIcon: require('../img/one_selected.png'), // iOS only
+      title: 'Screen One',
+    },
+    {
+      label: 'One',
+      screen: 'ceburilo.App',
+      navigatorStyle,
+      //icon: iconsMap['ios-film'],
+      icon: require('./ceburilo.png'),
       //selectedIcon: require('../img/one_selected.png'), // iOS only
       title: 'Screen One',
     },
