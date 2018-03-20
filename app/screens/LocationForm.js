@@ -7,9 +7,9 @@ export default class LocationForm extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput placeholder="Od" />
-        <TextInput placeholder="Do" />
-        <Button title="Znajdż trasę" />
+        <TextInput placeholder="Od" style={styles.addressInput} />
+        <TextInput placeholder="Do" style={styles.addressInput} />
+        <Button title="Znajdż trasę" color={COLOR_PRIMARY} />
       </View>
     );
   }
@@ -20,5 +20,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+  },
+  addressInput: {
+    alignSelf: 'stretch',
+    margin: 10,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  searchButton: {
+    backgroundColor: COLOR_PRIMARY,
   },
 });
