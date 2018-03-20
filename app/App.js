@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { ROUTES, INITIAL_ROUTE } from './config/routes';
-import { COLOR_PRIMARY } from './config/styles';
+import { COLOR_WHITE, COLOR_PRIMARY } from './config/styles';
 
 import logo from './assets/logo.png';
 
@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR_PRIMARY,
   },
   indicator: {
-    backgroundColor: '#fff',
+    backgroundColor: COLOR_WHITE,
   },
   hamburger: {
     padding: 12,
-    color: '#fff',
+    color: COLOR_WHITE,
   },
   logo: {
     width: 22,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginRight: 80,
   },
   headerText: {
-    color: '#fff',
+    color: COLOR_WHITE,
     fontSize: 22,
   },
 });
@@ -47,7 +47,7 @@ export default StackNavigator({
       tabBarOptions: { style: styles.tabs, indicatorStyle: styles.indicator },
       initialRouteName: INITIAL_ROUTE,
     }),
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       headerStyle: styles.header,
       headerTitle: (
         <View style={styles.headerTitle}>

@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
+
+import { COLOR_WHITE } from '/app/config/styles';
 
 export default class StationsMap extends React.Component {
   constructor() {
@@ -32,7 +34,7 @@ export default class StationsMap extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR_WHITE,
   },
   map: {
     flex: 1,

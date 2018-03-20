@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, TextInput, View, Button } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 
-import { COLOR_PRIMARY, COLOR_SECONDARY } from '/app/config/styles';
+import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
 
 export default class LocationForm extends React.Component {
   constructor() {
@@ -44,7 +43,7 @@ export default class LocationForm extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR_WHITE,
   },
   form: {
     flex: 1,
@@ -56,9 +55,6 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 40,
     marginRight: 40,
-  },
-  searchButton: {
-    backgroundColor: COLOR_PRIMARY,
   },
   map: {
     flex: 1,

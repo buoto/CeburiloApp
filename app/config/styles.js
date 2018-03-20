@@ -1,3 +1,4 @@
+export const COLOR_WHITE = '#FFFFFF';
 export const COLOR_PRIMARY = '#26A69A';
 export const COLOR_PRIMARY_LIGHT = '#50F2E3';
 export const COLOR_PRIMARY_DARK = '#0C5952';

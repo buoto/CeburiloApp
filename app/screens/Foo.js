@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { COLOR_WHITE } from '/app/config/styles';
 
 export default class Foo extends React.Component {
   render() {
@@ -18,7 +21,7 @@ export default class Foo extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR_WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
