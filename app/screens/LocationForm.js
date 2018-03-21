@@ -1,10 +1,31 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Button } from 'react-native';
 
-import MapView from 'react-native-maps';
-import { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLOR_WHITE,
+  },
+  form: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+  },
+  addressInput: {
+    alignSelf: 'stretch',
+    margin: 10,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  map: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
+});
 
 export default class LocationForm extends React.Component {
   constructor() {
@@ -33,31 +54,9 @@ export default class LocationForm extends React.Component {
           />
         </View>
         <MapView style={styles.map} initialRegion={region}>
-          <Marker coordinate={region} title={'Warszawa'} />
+          <Marker coordinate={region} title="Warszawa" />
         </MapView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLOR_WHITE,
-  },
-  form: {
-    flex: 1,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-  },
-  addressInput: {
-    alignSelf: 'stretch',
-    margin: 10,
-    marginLeft: 40,
-    marginRight: 40,
-  },
-  map: {
-    flex: 1,
-    alignSelf: 'stretch',
-  },
-});
