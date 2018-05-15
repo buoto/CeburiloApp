@@ -1,6 +1,7 @@
 export const COLOR_WHITE = '#FFFFFF';
 export const COLOR_PRIMARY = '#26A69A';
-export const COLOR_PRIMARY_LIGHT = '#50F2E3';
-export const COLOR_PRIMARY_DARK = '#0C5952';
-export const COLOR_SECONDARY = '#A64F26';
-export const COLOR_SECONDARY_DARK = '#591E03';
+export const COLOR_PRIMARY_LIGHT = '#64D8CB';
+export const COLOR_PRIMARY_DARK = '#00766C';
+export const COLOR_SECONDARY = '#FFEB3B';
+export const COLOR_SECONDARY_LIGHT = '#FFFF72';
+export const COLOR_SECONDARY_DARK = '#C8B900';

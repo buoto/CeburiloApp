@@ -17,6 +17,7 @@ yarn-debug.log*
 yarn-error.log*
 
 android/app/src/main/res/values/secrets.xml
+app/config/secrets.js
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the

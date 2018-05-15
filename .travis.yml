@@ -4,5 +4,6 @@ node_js:
   - "6"
 cache: yarn
 script:
+  - cp ./app/config/exampleSecrets.js ./app/config/secrets.js
   - yarn lint
   - yarn test
