@@ -3,6 +3,7 @@ package com.ceburiloapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -26,7 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new VectorIconsPackage(),
-          new MapsPackage()
+          new MapsPackage(),
+          new RNGooglePlacesPackage()
       );
     }
 

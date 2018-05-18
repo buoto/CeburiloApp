@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, TouchableOpacity, Text } from 'react-native';
 
 import MapView, { Marker } from 'react-native-maps';
 
 import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
-import PlacesAutocomplete from '/app/components/PlacesAutocomplete';
-import { GOOGLE_MAPS_API_KEY } from '/app/config/secrets';
+import RNGooglePlaces from 'react-native-google-places';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +20,6 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     alignSelf: 'stretch',
-  },
-  autocomplete: {
-    flex: 0,
   },
 });
 
@@ -41,53 +37,29 @@ export default class LocationForm extends React.Component {
       end: null,
     };
   }
+
+  openSearchModal = () => {
+    RNGooglePlaces.openAutocompleteModal();
+    // .then(place => {
+    // console.log(place, this);
+    // place represents user's selection from the
+    // suggestions and it is a simplified Google Place object.
+    // });
+    // .catch(error => console.log(error)); // error is a Javascript Error object
+  };
+
   render() {
     const { region, start, end } = this.state;
 
     return (
       <View style={styles.container}>
         <View style={styles.form}>
-          <PlacesAutocomplete
-            style={styles.autocomplete}
-            placeholder="Start"
-            query={{
-              // available options: https://developers.google.com/places/web-service/autocomplete
-              key: GOOGLE_MAPS_API_KEY,
-              language: 'pl', // language of the results
-              location: `${region.latitude},${region.longitude}`,
-              radius: 100000,
-              strictbounds: true,
-            }}
-            onPress={(
-              result,
-              { geometry: { location: { lat: latitude, lng: longitude } } },
-            ) => {
-              this.setState({
-                ...this.state,
-                start: { latitude, longitude },
-              });
-            }}
-          />
-          <PlacesAutocomplete
-            placeholder="Cel"
-            query={{
-              // available options: https://developers.google.com/places/web-service/autocomplete
-              key: GOOGLE_MAPS_API_KEY,
-              language: 'pl', // language of the results
-              location: `${region.latitude},${region.longitude}`,
-              radius: 100000,
-              strictbounds: true,
-            }}
-            onPress={(
-              result,
-              { geometry: { location: { lat: latitude, lng: longitude } } },
-            ) => {
-              this.setState({
-                ...this.state,
-                end: { latitude, longitude },
-              });
-            }}
-          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.openSearchModal()}
+          >
+            <Text>Open Place Picker</Text>
+          </TouchableOpacity>
           <Button
             title="Znajdż trasę"
             color={COLOR_PRIMARY}
