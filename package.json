@@ -30,6 +30,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-google-places": "^2.5.0",
