@@ -33,6 +33,7 @@
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
+    "react-native-floating-action": "^1.10.1",
     "react-native-google-places": "^2.5.0",
     "react-native-maps": "^0.20.1",
     "react-native-vector-icons": "^4.6.0",
