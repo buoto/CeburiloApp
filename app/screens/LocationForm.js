@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 
 import MapView, { Marker } from 'react-native-maps';
-import { FloatingAction } from 'react-native-floating-action';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
 import { initialRegion } from '/app/config/consts';
 import LocationInput from '/app/components/LocationInput';
+import FloatingAction from '/app/components/FloatingAction';
 
 const actions = [
   {
@@ -71,13 +71,13 @@ export default class LocationForm extends React.Component {
       longitude,
       name: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
     };
-    this.locationSetter(name)(location, { touchedLocation: null });
+    this.locationSetter(name)(location, { touchedLocation: undefined });
   };
 
   render() {
     const { start, end, touchedLocation } = this.state;
 
-    const buttonVisible = start && end;
+    const buttonVisible = start && end && !touchedLocation;
 
     return (
       <View style={styles.container}>
@@ -122,6 +122,7 @@ export default class LocationForm extends React.Component {
           actions={actions}
           visible={false}
           onPressItem={this.handleAction}
+          onReset={() => this.setState({ touchedLocation: undefined })}
         />
       </View>
     );
