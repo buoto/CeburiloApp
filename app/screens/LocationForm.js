@@ -53,12 +53,10 @@ const styles = StyleSheet.create({
 export default class LocationForm extends React.Component {
   constructor() {
     super();
-    this.state = {
-      touchedLocation: {},
-    };
+    this.state = {};
   }
-  locationSetter = key => ({ name, latitude, longitude }) => {
-    this.setState({ [key]: { name, latitude, longitude } });
+  locationSetter = key => ({ name, latitude, longitude }, extra) => {
+    this.setState({ [key]: { name, latitude, longitude }, ...extra });
   };
 
   mapChangeLocation = ({ nativeEvent: { coordinate } }) => {
@@ -73,11 +71,11 @@ export default class LocationForm extends React.Component {
       longitude,
       name: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
     };
-    this.locationSetter(name)(location);
+    this.locationSetter(name)(location, { touchedLocation: null });
   };
 
   render() {
-    const { start, end } = this.state;
+    const { start, end, touchedLocation } = this.state;
 
     const buttonVisible = start && end;
 
@@ -113,6 +111,9 @@ export default class LocationForm extends React.Component {
         >
           {start && <Marker coordinate={start} title="Start" />}
           {end && <Marker coordinate={end} title="Koniec" />}
+          {touchedLocation && (
+            <Marker coordinate={touchedLocation} title="Wybrana lokalizacja" />
+          )}
         </MapView>
         <FloatingAction
           ref={ref => {
