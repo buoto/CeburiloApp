@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { createStackNavigator, createTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { ROUTES, INITIAL_ROUTE } from './config/routes';
 import { COLOR_WHITE, COLOR_PRIMARY } from './config/styles';
+import ceburiloApp from './reducers';
 
 import logo from './assets/logo.png';
 
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
 
 // TODO: Handle hamburger touches, see: https://github.com/react-navigation/react-navigation/issues/1539#issuecomment-301870732
 // TODO: Refactor below!
-export default createStackNavigator(
+const RootNavigator = createStackNavigator(
   {
     Root: {
       screen: createTabNavigator(ROUTES, {
@@ -65,3 +69,13 @@ export default createStackNavigator(
     disableKeyboardHandling: true,
   },
 );
+
+const store = createStore(ceburiloApp);
+
+const App = () => (
+  <Provider store={store}>
+    <RootNavigator />
+  </Provider>
+);
+
+export default App;
