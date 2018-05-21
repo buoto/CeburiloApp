@@ -46,7 +46,10 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     position: 'absolute',
-    bottom: -25,
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 10,
+    zIndex: 100,
   },
 });
 
@@ -81,19 +84,19 @@ export default class LocationForm extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.form}>
-          <View style={styles.inputs}>
-            <LocationInput
-              placeholder="Start"
-              location={start}
-              onChange={this.locationSetter('start')}
-            />
-            <LocationInput
-              placeholder="Cel"
-              location={end}
-              onChange={this.locationSetter('end')}
-            />
-          </View>
+        <View style={styles.inputs}>
+          <LocationInput
+            placeholder="Start"
+            location={start}
+            onChange={this.locationSetter('start')}
+          />
+          <LocationInput
+            placeholder="Cel"
+            location={end}
+            onChange={this.locationSetter('end')}
+          />
+        </View>
+        <View>
           <View style={styles.searchButton}>
             {buttonVisible && (
               <Button
