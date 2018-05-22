@@ -31,11 +31,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR_WHITE,
   },
-  form: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   inputs: {
     alignSelf: 'stretch',
   },

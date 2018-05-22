@@ -27,7 +27,8 @@
     "semi": ["error", "always"],
     "import/no-absolute-path": [0],
     "react/jsx-filename-extension": [0],
-    "arrow-parens": [0]
+    "arrow-parens": [0],
+    "indent": ["error",2, { "SwitchCase": 1 }]
   },
   "settings": {
     "import/resolver": {

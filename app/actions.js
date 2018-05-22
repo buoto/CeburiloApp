@@ -1,5 +1,5 @@
 function makeActionCreator(type, ...argNames) {
-  return function(...args) {
+  return (...args) => {
     const action = { type };
     argNames.forEach((arg, index) => {
       action[argNames[index]] = args[index]; // TODO change to arg
