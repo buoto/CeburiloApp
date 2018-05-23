@@ -2,24 +2,16 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-import MapView from 'react-native-maps';
-
 import { COLOR_WHITE } from '/app/config/styles';
-import { initialRegion } from '/app/config/consts';
 import LocationInput from '/app/components/LocationInput';
 import SearchButton from '/app/components/SearchButton';
 import StartEndPrompt from '/app/components/StartEndPrompt';
-import ConditionalMarker from '/app/components/ConditionalMarker';
+import RouteMap from '/app/components/RouteMap';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR_WHITE,
-  },
-  map: {
-    flex: 1,
-    alignSelf: 'stretch',
-    zIndex: 0,
   },
 });
 
@@ -63,10 +55,6 @@ export default class LocationForm extends React.Component {
     }
   }
 
-  mapChangeLocation = ({ nativeEvent: { coordinate } }) => {
-    this.props.onChange({ touchedLocation: coordsToLocation(coordinate) });
-  };
-
   render() {
     const { start, end, touchedLocation, onChange, onSubmit } = this.props;
 
@@ -85,18 +73,16 @@ export default class LocationForm extends React.Component {
           onChange={location => onChange({ end: projectLocation(location) })}
         />
         {buttonVisible && <SearchButton onPress={() => onSubmit(start, end)} />}
-        <MapView
-          style={styles.map}
-          initialRegion={initialRegion}
-          onLongPress={this.mapChangeLocation}
-        >
-          <ConditionalMarker coordinate={start} title="Start" />
-          <ConditionalMarker coordinate={end} title="Koniec" />
-          <ConditionalMarker
-            coordinate={touchedLocation}
-            title="Wybrana lokalizacja"
-          />
-        </MapView>
+        <RouteMap
+          onLongPress={({ nativeEvent: { coordinate } }) =>
+            onChange({
+              touchedLocation: coordsToLocation(coordinate),
+            })
+          }
+          start={start}
+          end={end}
+          touchedLocation={touchedLocation}
+        />
         <StartEndPrompt
           visible={!!touchedLocation}
           onPress={name =>

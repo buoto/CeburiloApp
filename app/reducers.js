@@ -14,7 +14,12 @@ function route(state = {}, action) {
       return {
         ...state,
         isFetching: false,
-        path: action.path,
+        path: {
+          ...action.path,
+          points: action.path.points.coordinates.map(
+            ([longitude, latitude]) => ({ longitude, latitude }),
+          ),
+        },
         stations: action.stations,
       };
     case RECEIVE_ROUTE_ERROR:
