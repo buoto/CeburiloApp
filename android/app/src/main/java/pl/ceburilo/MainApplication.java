@@ -1,4 +1,4 @@
-package com.ceburiloapp;
+package pl.ceburilo;
 
 import android.app.Application;
 
