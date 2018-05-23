@@ -31,3 +31,6 @@ app/config/secrets.js
 
 # Bundle artifact
 *.jsbundle
+
+*.keystore
+secrets.xml
