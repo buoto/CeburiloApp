@@ -3,8 +3,7 @@ import {
   REQUEST_ROUTE,
   RECEIVE_ROUTE_SUCCESS,
   RECEIVE_ROUTE_ERROR,
-  SET_START,
-  SET_END,
+  CHANGE_FORM,
 } from '/app/actions';
 
 function route(state = {}, action) {
@@ -20,10 +19,15 @@ function route(state = {}, action) {
       };
     case RECEIVE_ROUTE_ERROR:
       return { ...state, isFetching: false, error: action.error };
-    case SET_START:
-      return { ...state, start: action.start };
-    case SET_END:
-      return { ...state, end: action.end };
+    default:
+      return state;
+  }
+}
+
+function form(state = {}, action) {
+  switch (action.type) {
+    case CHANGE_FORM:
+      return { ...state, ...action.data };
     default:
       return state;
   }
@@ -31,6 +35,7 @@ function route(state = {}, action) {
 
 const ceburiloApp = combineReducers({
   route,
+  form,
 });
 
 export default ceburiloApp;

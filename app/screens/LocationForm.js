@@ -1,126 +1,111 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import PropTypes from 'prop-types';
 
-import MapView, { Marker } from 'react-native-maps';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import MapView from 'react-native-maps';
 
-import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
+import { COLOR_WHITE } from '/app/config/styles';
 import { initialRegion } from '/app/config/consts';
 import LocationInput from '/app/components/LocationInput';
-import FloatingAction from '/app/components/FloatingAction';
-
-const actions = [
-  {
-    text: 'Start',
-    name: 'start',
-    position: 1,
-    icon: <Icon name="flag" color={COLOR_WHITE} />,
-    color: COLOR_PRIMARY,
-  },
-  {
-    text: 'Cel',
-    name: 'end',
-    position: 1,
-    icon: <Icon name="flag-checkered" color={COLOR_WHITE} />,
-    color: COLOR_PRIMARY,
-  },
-];
+import SearchButton from '/app/components/SearchButton';
+import StartEndPrompt from '/app/components/StartEndPrompt';
+import ConditionalMarker from '/app/components/ConditionalMarker';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR_WHITE,
   },
-  inputs: {
-    alignSelf: 'stretch',
-  },
   map: {
     flex: 1,
     alignSelf: 'stretch',
     zIndex: 0,
   },
-  searchButton: {
-    position: 'absolute',
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 10,
-    zIndex: 100,
-  },
+});
+
+const coordsToLocation = ({ latitude, longitude }) => ({
+  latitude,
+  longitude,
+  name: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
+});
+
+const projectLocation = ({ name, latitude, longitude }) => ({
+  name,
+  latitude,
+  longitude,
 });
 
 export default class LocationForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-  locationSetter = key => ({ name, latitude, longitude }, extra) => {
-    this.setState({ [key]: { name, latitude, longitude }, ...extra });
+  static defaultProps = {
+    start: undefined,
+    end: undefined,
+    touchedLocation: undefined,
+    onChange: () => {},
+    onSubmit: () => {},
+    isFetching: false,
+    navigation: undefined,
   };
+
+  static propTypes = {
+    start: PropTypes.shape({ name: PropTypes.string }),
+    end: PropTypes.shape({ name: PropTypes.string }),
+    touchedLocation: PropTypes.shape({ name: PropTypes.string }),
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    isFetching: PropTypes.bool,
+    navigation: PropTypes.shape({ navigate: PropTypes.func }),
+  };
+
+  componentDidUpdate({ isFetching: wasFetching }) {
+    const { isFetching, navigation } = this.props;
+    if (wasFetching && !isFetching) {
+      navigation.navigate('Result');
+    }
+  }
 
   mapChangeLocation = ({ nativeEvent: { coordinate } }) => {
-    this.floatingAction.animateButton();
-    this.setState({ touchedLocation: coordinate });
-  };
-
-  handleAction = name => {
-    const { touchedLocation: { latitude, longitude } } = this.state;
-    const location = {
-      latitude,
-      longitude,
-      name: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
-    };
-    this.locationSetter(name)(location, { touchedLocation: undefined });
+    this.props.onChange({ touchedLocation: coordsToLocation(coordinate) });
   };
 
   render() {
-    const { start, end, touchedLocation } = this.state;
+    const { start, end, touchedLocation, onChange, onSubmit } = this.props;
 
     const buttonVisible = start && end && !touchedLocation;
 
     return (
       <View style={styles.container}>
-        <View style={styles.inputs}>
-          <LocationInput
-            placeholder="Start"
-            location={start}
-            onChange={this.locationSetter('start')}
-          />
-          <LocationInput
-            placeholder="Cel"
-            location={end}
-            onChange={this.locationSetter('end')}
-          />
-        </View>
-        <View>
-          <View style={styles.searchButton}>
-            {buttonVisible && (
-              <Button
-                title="Znajdż trasę"
-                color={COLOR_PRIMARY}
-                onPress={() => {}}
-              />
-            )}
-          </View>
-        </View>
+        <LocationInput
+          placeholder="Start"
+          location={start}
+          onChange={location => onChange({ start: projectLocation(location) })}
+        />
+        <LocationInput
+          placeholder="Cel"
+          location={end}
+          onChange={location => onChange({ end: projectLocation(location) })}
+        />
+        {buttonVisible && <SearchButton onPress={() => onSubmit(start, end)} />}
         <MapView
           style={styles.map}
           initialRegion={initialRegion}
           onLongPress={this.mapChangeLocation}
         >
-          {start && <Marker coordinate={start} title="Start" />}
-          {end && <Marker coordinate={end} title="Koniec" />}
-          {touchedLocation && (
-            <Marker coordinate={touchedLocation} title="Wybrana lokalizacja" />
-          )}
+          <ConditionalMarker coordinate={start} title="Start" />
+          <ConditionalMarker coordinate={end} title="Koniec" />
+          <ConditionalMarker
+            coordinate={touchedLocation}
+            title="Wybrana lokalizacja"
+          />
         </MapView>
-        <FloatingAction
-          ref={ref => {
-            this.floatingAction = ref;
-          }}
-          actions={actions}
-          visible={false}
-          onPressItem={this.handleAction}
-          onReset={() => this.setState({ touchedLocation: undefined })}
+        <StartEndPrompt
+          visible={!!touchedLocation}
+          onPress={name =>
+            onChange({
+              [name]: touchedLocation,
+              touchedLocation: undefined,
+            })
+          }
+          onReset={() => onChange({ touchedLocation: undefined })}
         />
       </View>
     );

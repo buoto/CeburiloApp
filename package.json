@@ -8,6 +8,7 @@
     "babel-root-slash-import": "^1.1.0",
     "eslint": "^4.19.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-import-resolver-babel-root-slash-import": "^1.0.6",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "prop-types": "^15.6.1",
+    "query-string": "^6.1.0",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-floating-action": "^1.10.1",
@@ -39,6 +41,7 @@
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.0.1",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   }
 }

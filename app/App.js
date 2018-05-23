@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { createStackNavigator, createTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import Foo from './screens/Foo';
 
 import { ROUTES, INITIAL_ROUTE } from './config/routes';
 import { COLOR_WHITE, COLOR_PRIMARY } from './config/styles';
@@ -64,13 +67,16 @@ const RootNavigator = createStackNavigator(
         headerLeft: <Icon name="bars" size={20} style={styles.hamburger} />,
       }),
     },
+    Result: {
+      screen: Foo,
+    },
   },
   {
     disableKeyboardHandling: true,
   },
 );
 
-const store = createStore(ceburiloApp);
+const store = createStore(ceburiloApp, applyMiddleware(thunk));
 
 const App = () => (
   <Provider store={store}>

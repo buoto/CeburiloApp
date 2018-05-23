@@ -17,11 +17,14 @@ const styles = StyleSheet.create({
 
     borderBottomColor: COLOR_GREY_DARK,
     borderBottomWidth: StyleSheet.hairlineWidth,
+
+    height: 60,
   },
   location: {
     alignSelf: 'stretch',
     flex: 1,
-    padding: 20,
+    paddingLeft: 20,
+    justifyContent: 'center',
   },
   locationText: {
     fontSize: 16,
