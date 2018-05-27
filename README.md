@@ -27,6 +27,23 @@ to avoid network problems.
 $ adb reverse tcp:8081 tcp:8081
 ```
 
+### Google Maps API keys
+
+This app uses Google Maps API for geolocation and for displaying maps. The
+development key is not in the repo. You'll need to obtain your own key for
+development at <https://console.developers.google.com/apis/>.
+
+Then create the file `android/app/src/main/res/values/secrets.xml` with the
+following content:
+
+```xml
+<resources>
+    <string name="google_maps_api_key">[your API key]</string>
+</resources>
+```
+
+The file is in `.gitignore` to prevent acidential leakage of the key.
+
 ### Build APK
 
 Build development APK and send it to device using:
