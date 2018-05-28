@@ -11,6 +11,7 @@ import RouteResult from './containers/RouteResult';
 import { ROUTES, INITIAL_ROUTE } from './config/routes';
 import { COLOR_WHITE, COLOR_PRIMARY } from './config/styles';
 import ceburiloApp from './reducers';
+import { checkLocationPermission } from './actions';
 
 import logo from './assets/logo.png';
 
@@ -76,6 +77,7 @@ const RootNavigator = createStackNavigator(
 );
 
 const store = createStore(ceburiloApp, applyMiddleware(thunk));
+store.dispatch(checkLocationPermission());
 
 const App = () => (
   <Provider store={store}>

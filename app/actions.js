@@ -14,6 +14,7 @@ export const REQUEST_ROUTE = 'REQUEST_ROUTE';
 export const RECEIVE_ROUTE_SUCCESS = 'RECEIVE_ROUTE_SUCCESS';
 export const RECEIVE_ROUTE_ERROR = 'RECEIVE_ROUTE_ERROR';
 export const CHANGE_FORM = 'CHANGE_FORM';
+export const LOCATION_PERMISSION_CHANGE = 'LOCATION_PERMISSION_CHANGE';
 
 const requestRoute = makeActionCreator(REQUEST_ROUTE, 'from', 'to');
 const receiveRouteSuccess = makeActionCreator(
@@ -49,6 +50,37 @@ export function fetchRouteIfNeeded(from, to) {
     }
     return dispatch(fetchRoute(from, to));
   };
+}
+
+const { PermissionsAndroid } = require('react-native'); // TODO ios
+
+export const changeLocationPermission = makeActionCreator(
+  LOCATION_PERMISSION_CHANGE,
+  'value',
+);
+
+export function requestLocationPermission() {
+  return dispatch =>
+    PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: 'Ceburilo prosi o dostęp do lokalizacji',
+        message:
+          'Aby pobieranie bieżącej lokalizacji działało poprawnie ' +
+          'potrzebna jest twoja zgoda.',
+      },
+    ).then(
+      granted =>
+        granted === PermissionsAndroid.RESULTS.GRANTED &&
+        dispatch(changeLocationPermission(true)),
+    );
+}
+
+export function checkLocationPermission() {
+  return dispatch =>
+    PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    ).then(granted => dispatch(changeLocationPermission(granted)));
 }
 
 export const changeForm = makeActionCreator(CHANGE_FORM, 'data');

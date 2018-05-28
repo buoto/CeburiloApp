@@ -40,18 +40,26 @@ class LocationInput extends Component {
     placeholder: '',
     onChange: () => {},
     location: { name: '' },
+    locationAccess: false,
+    requestPermission: () => {},
   };
 
   static propTypes = {
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
     location: PropTypes.shape({ name: PropTypes.string }),
+    locationAccess: PropTypes.bool,
+    requestPermission: PropTypes.func,
   };
 
   getCurrentLocation = () => {
-    const { onChange } = this.props;
-    RNGooglePlaces.getCurrentPlace().then(([place]) => onChange(place));
-    // .catch(error => console.log(error)); TODO handle error
+    const { onChange, locationAccess, requestPermission } = this.props;
+    if (locationAccess) {
+      RNGooglePlaces.getCurrentPlace().then(([place]) => onChange(place));
+      // .catch(error => console.log(error)); TODO handle error
+    } else {
+      requestPermission();
+    }
   };
   openSearchModal = () => {
     const { onChange } = this.props;

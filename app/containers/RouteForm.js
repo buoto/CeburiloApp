@@ -1,21 +1,28 @@
 import { connect } from 'react-redux';
 
-import { changeForm, fetchRouteIfNeeded } from '/app/actions';
+import {
+  changeForm,
+  fetchRouteIfNeeded,
+  requestLocationPermission,
+} from '/app/actions';
 import LocationForm from '/app/screens/LocationForm';
 
 const mapStateToProps = ({
   form: { start, end, touchedLocation },
   route: { isFetching },
+  locationAccess,
 }) => ({
   start,
   end,
   touchedLocation,
   isFetching,
+  locationAccess,
 });
 
 const mapDispatchToProps = dispatch => ({
   onChange: data => dispatch(changeForm(data)),
   onSubmit: (from, to) => dispatch(fetchRouteIfNeeded(from, to)),
+  requestPermission: () => dispatch(requestLocationPermission()),
 });
 
 const RouteForm = connect(mapStateToProps, mapDispatchToProps)(LocationForm);

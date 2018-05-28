@@ -36,6 +36,8 @@ export default class LocationForm extends React.Component {
     onSubmit: () => {},
     isFetching: false,
     navigation: undefined,
+    locationAccess: false,
+    requestPermission: () => {},
   };
 
   static propTypes = {
@@ -46,6 +48,8 @@ export default class LocationForm extends React.Component {
     onSubmit: PropTypes.func,
     isFetching: PropTypes.bool,
     navigation: PropTypes.shape({ navigate: PropTypes.func }),
+    locationAccess: PropTypes.bool,
+    requestPermission: PropTypes.func,
   };
 
   componentDidUpdate({ isFetching: wasFetching }) {
@@ -56,7 +60,15 @@ export default class LocationForm extends React.Component {
   }
 
   render() {
-    const { start, end, touchedLocation, onChange, onSubmit } = this.props;
+    const {
+      start,
+      end,
+      touchedLocation,
+      onChange,
+      onSubmit,
+      locationAccess,
+      requestPermission,
+    } = this.props;
 
     const buttonVisible = start && end && !touchedLocation;
 
@@ -66,11 +78,15 @@ export default class LocationForm extends React.Component {
           placeholder="Start"
           location={start}
           onChange={location => onChange({ start: projectLocation(location) })}
+          requestPermission={requestPermission}
+          locationAccess={locationAccess}
         />
         <LocationInput
           placeholder="Cel"
           location={end}
           onChange={location => onChange({ end: projectLocation(location) })}
+          requestPermission={requestPermission}
+          locationAccess={locationAccess}
         />
         {buttonVisible && <SearchButton onPress={() => onSubmit(start, end)} />}
         <RouteMap
