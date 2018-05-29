@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { COLOR_GREY, COLOR_GREY_DARK } from '/app/config/styles';
 import { initialRegion } from '/app/config/consts';
+import { locationType } from '/app/models';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +48,7 @@ class LocationInput extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
-    location: PropTypes.shape({ name: PropTypes.string }),
+    location: locationType,
     locationAccess: PropTypes.bool,
     requestPermission: PropTypes.func,
   };

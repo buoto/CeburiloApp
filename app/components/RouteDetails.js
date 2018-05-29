@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 
 import { initialRegion } from '/app/config/consts';
-import ConditionalMarker from '/app/components/ConditionalMarker';
+import RouteMap from '/app/components/RouteMap';
 import { locationType } from '/app/models';
 
 const styles = StyleSheet.create({
@@ -15,33 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RouteMap = ({
-  start,
-  end,
-  touchedLocation,
-  stations,
-  path: { points },
-  ...props
-}) => (
-  <MapView initialRegion={initialRegion} style={styles.map} {...props}>
-    <ConditionalMarker coordinate={start} title="Start" />
-    <ConditionalMarker coordinate={end} title="Koniec" />
-    <ConditionalMarker
-      coordinate={touchedLocation}
-      title="Wybrana lokalizacja"
-    />
-    {stations.map(({ location: [latitude, longitude], name, number }) => (
-      <Marker
-        key={number}
-        coordinate={{ longitude, latitude }}
-        title={`${name} (${number})`}
-      />
-    ))}
-    {points && (
-      <Polyline coordinates={points} strokeWidth={3} strokeColor="#00f" />
-    )}
-  </MapView>
-);
+const RouteMap = ({ ...props }) => <RouteMap {...props} />;
 
 RouteMap.propTypes = {
   start: locationType,

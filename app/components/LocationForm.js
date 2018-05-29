@@ -7,6 +7,7 @@ import LocationInput from '/app/components/LocationInput';
 import SearchButton from '/app/components/SearchButton';
 import StartEndPrompt from '/app/components/StartEndPrompt';
 import RouteMap from '/app/components/RouteMap';
+import { locationType } from '/app/models';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,9 +42,9 @@ export default class LocationForm extends React.Component {
   };
 
   static propTypes = {
-    start: PropTypes.shape({ name: PropTypes.string }),
-    end: PropTypes.shape({ name: PropTypes.string }),
-    touchedLocation: PropTypes.shape({ name: PropTypes.string }),
+    start: locationType,
+    end: locationType,
+    touchedLocation: locationType,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     isFetching: PropTypes.bool,

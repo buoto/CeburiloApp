@@ -1,15 +1,13 @@
 import React from 'react';
 import { Marker } from 'react-native-maps';
-import PropTypes from 'prop-types';
+
+import { coordinateType } from '/app/models';
 
 const ConditionalMarker = ({ coordinate, ...props }) =>
   coordinate && <Marker coordinate={coordinate} {...props} />;
 
 ConditionalMarker.propTypes = {
-  coordinate: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-  }),
+  coordinate: coordinateType,
 };
 
 ConditionalMarker.defaultProps = {
