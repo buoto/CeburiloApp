@@ -27,7 +27,8 @@
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js",
     "lint": "./node_modules/eslint-watch/bin/esw",
-    "postversion": "react-native-version -a"
+    "postversion": "react-native-version -a",
+    "build": "cd android && ./gradlew assembleRelease"
   },
   "jest": {
     "preset": "react-native"

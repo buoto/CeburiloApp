@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 const SearchButton = ({ onPress }) => (
   <View>
     <View style={styles.searchButton}>
-      <Button title="Znajdż trasę" color={COLOR_PRIMARY} onPress={onPress} />
+      <Button title="Znajdź trasę" color={COLOR_PRIMARY} onPress={onPress} />
     </View>
   </View>
 );
