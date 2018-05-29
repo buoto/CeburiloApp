@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStackNavigator, createTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import RouteResult from './containers/RouteResult';
+import RouteResult from './screens/RouteResult';
 
 import { ROUTES, INITIAL_ROUTE } from './config/routes';
 import { COLOR_WHITE, COLOR_PRIMARY } from './config/styles';
@@ -69,6 +69,11 @@ const RootNavigator = createStackNavigator(
     },
     Result: {
       screen: RouteResult,
+      navigationOptions: () => ({
+        headerTitle: <Text style={styles.headerText}>Optymalna trasa</Text>,
+        headerStyle: styles.header,
+        headerTintColor: COLOR_WHITE,
+      }),
     },
   },
   {

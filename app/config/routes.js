@@ -1,5 +1,5 @@
 import Foo from '/app/screens/Foo';
-import RouteForm from '/app/containers/RouteForm';
+import RouteForm from '/app/screens/RouteForm';
 import StationsMap from '/app/screens/StationsMap';
 
 export const ROUTES = {

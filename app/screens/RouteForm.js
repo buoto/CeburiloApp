@@ -5,7 +5,7 @@ import {
   fetchRouteIfNeeded,
   requestLocationPermission,
 } from '/app/actions';
-import LocationForm from '/app/screens/LocationForm';
+import LocationForm from '/app/components/LocationForm';
 
 const mapStateToProps = ({
   form: { start, end, touchedLocation },
