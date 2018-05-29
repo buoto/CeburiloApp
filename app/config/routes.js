@@ -1,10 +1,10 @@
 import Foo from '/app/screens/Foo';
-import RouteForm from '/app/screens/RouteForm';
+import Form from '/app/screens/Form';
 import StationsMap from '/app/screens/StationsMap';
 
 export const ROUTES = {
   Statystyki: { screen: Foo },
-  Trasy: { screen: RouteForm },
+  Trasy: { screen: Form },
   Stacje: { screen: StationsMap },
 };
 

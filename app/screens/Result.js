@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import RouteMap from '/app/components/RouteMap';
+import RouteResult from '/app/components/RouteResult';
 
 const mapStateToProps = ({
   form: { start, end },
@@ -14,6 +14,6 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = () => ({});
 
-const RouteResult = connect(mapStateToProps, mapDispatchToProps)(RouteMap);
+const Result = connect(mapStateToProps, mapDispatchToProps)(RouteResult);
 
-export default RouteResult;
+export default Result;

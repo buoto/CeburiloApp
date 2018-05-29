@@ -25,6 +25,6 @@ const mapDispatchToProps = dispatch => ({
   requestPermission: () => dispatch(requestLocationPermission()),
 });
 
-const RouteForm = connect(mapStateToProps, mapDispatchToProps)(LocationForm);
+const Form = connect(mapStateToProps, mapDispatchToProps)(LocationForm);
 
-export default RouteForm;
+export default Form;
