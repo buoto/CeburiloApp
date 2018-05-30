@@ -24,8 +24,8 @@ const RouteMap = ({
   ...props
 }) => (
   <MapView initialRegion={initialRegion} style={styles.map} {...props}>
-    <ConditionalMarker coordinate={start} title="Start" />
-    <ConditionalMarker coordinate={end} title="Koniec" />
+    <ConditionalMarker coordinate={start} title="Start" pinColor="#00c853" />
+    <ConditionalMarker coordinate={end} title="Koniec" pinColor="#ff3d00" />
     <ConditionalMarker
       coordinate={touchedLocation}
       title="Wybrana lokalizacja"
@@ -35,6 +35,7 @@ const RouteMap = ({
         key={number}
         coordinate={{ longitude, latitude }}
         title={`${name} (${number})`}
+        pinColor="#2979ff"
       />
     ))}
     {points && (
