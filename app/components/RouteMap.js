@@ -4,8 +4,8 @@ import { StyleSheet, InteractionManager } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 
 import ConditionalMarker from '/app/components/ConditionalMarker';
-import { locationType } from '/app/models';
-import { initialRegion } from '/app/config/consts';
+import { locationType, regionType } from '/app/models';
+import { defaultInitialRegion } from '/app/config/consts';
 
 const styles = StyleSheet.create({
   map: {
@@ -18,10 +18,22 @@ const styles = StyleSheet.create({
 class RouteMap extends React.Component {
   componentDidMount() {
     const { fitToElements } = this.props;
+
     if (this.mapView && fitToElements) {
       InteractionManager.runAfterInteractions(() => {
         this.mapView.fitToElements(true);
       });
+    }
+  }
+  componentDidUpdate() {
+    const { userHeading, userLocation } = this.props;
+    if (this.mapView) {
+      if (userLocation) {
+        this.mapView.animateToCoordinate(userLocation);
+      }
+      if (userHeading) {
+        this.mapView.animateToBearing(userHeading);
+      }
     }
   }
 
@@ -31,6 +43,7 @@ class RouteMap extends React.Component {
       end,
       touchedLocation,
       stations,
+      initialRegion,
       path: { points },
       ...props
     } = this.props;
@@ -74,6 +87,8 @@ RouteMap.propTypes = {
   start: locationType,
   end: locationType,
   touchedLocation: locationType,
+  userLocation: locationType,
+  initialRegion: regionType,
   stations: PropTypes.arrayOf(
     PropTypes.shape({ location: PropTypes.arrayOf(PropTypes.number) }),
   ),
@@ -86,12 +101,16 @@ RouteMap.propTypes = {
     ),
   }),
   fitToElements: PropTypes.bool,
+  userHeading: PropTypes.number,
 };
 
 RouteMap.defaultProps = {
   start: undefined,
   end: undefined,
   touchedLocation: undefined,
+  userLocation: undefined,
+  userHeading: undefined,
+  initialRegion: defaultInitialRegion,
   fitToElements: false,
   stations: [],
   path: {},

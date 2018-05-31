@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const initialRegion = {
+export const defaultInitialRegion = {
   latitude: 52.22,
   longitude: 21.017532,
   latitudeDelta: 0.1,

@@ -6,11 +6,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
 
+import HeaderTitle from '/app/components/HeaderTitle';
+
 import Foo from '/app/screens/Foo';
 import Form from '/app/screens/Form';
 import StationsMap from '/app/screens/StationsMap';
 import Result from '/app/screens/Result';
-import HeaderTitle from '/app/components/HeaderTitle';
+import Navigate from '/app/screens/Navigate';
 
 const styles = StyleSheet.create({
   tabs: {
@@ -46,7 +48,6 @@ const TabNavigator = createTabNavigator(
 );
 
 // TODO: Handle hamburger touches, see: https://github.com/react-navigation/react-navigation/issues/1539#issuecomment-301870732
-// TODO: Refactor below!
 const RootNavigator = createStackNavigator(
   {
     Root: {
@@ -61,6 +62,14 @@ const RootNavigator = createStackNavigator(
       screen: Result,
       navigationOptions: () => ({
         headerTitle: <Text style={styles.headerText}>Optymalna trasa</Text>,
+        headerStyle: styles.header,
+        headerTintColor: COLOR_WHITE,
+      }),
+    },
+    Navigate: {
+      screen: Navigate,
+      navigationOptions: () => ({
+        headerTitle: <Text style={styles.headerText}>Nawigacja</Text>,
         headerStyle: styles.header,
         headerTintColor: COLOR_WHITE,
       }),

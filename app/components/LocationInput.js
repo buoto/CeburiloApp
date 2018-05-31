@@ -6,7 +6,7 @@ import RNGooglePlaces from 'react-native-google-places';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { COLOR_GREY, COLOR_GREY_DARK } from '/app/config/styles';
-import { initialRegion } from '/app/config/consts';
+import { defaultInitialRegion } from '/app/config/consts';
 import { locationType } from '/app/models';
 
 const styles = StyleSheet.create({
@@ -64,7 +64,7 @@ class LocationInput extends Component {
   };
   openSearchModal = () => {
     const { onChange } = this.props;
-    RNGooglePlaces.openAutocompleteModal(initialRegion).then(place => {
+    RNGooglePlaces.openAutocompleteModal(defaultInitialRegion).then(place => {
       onChange(place);
     });
     // .catch(error => console.log(error)); TODO handle error

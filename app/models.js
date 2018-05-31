@@ -10,3 +10,12 @@ export const locationType = PropTypes.shape({
   latitude: PropTypes.number,
   longitude: PropTypes.number,
 });
+
+export const regionType = PropTypes.shape({
+  latitude: PropTypes.number,
+  longitude: PropTypes.number,
+  latitudeDelta: PropTypes.number,
+  longitudeDelta: PropTypes.number,
+  radius: PropTypes.number,
+  country: PropTypes.string,
+});

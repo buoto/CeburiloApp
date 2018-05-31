@@ -15,6 +15,7 @@ export const RECEIVE_ROUTE_SUCCESS = 'RECEIVE_ROUTE_SUCCESS';
 export const RECEIVE_ROUTE_ERROR = 'RECEIVE_ROUTE_ERROR';
 export const CHANGE_FORM = 'CHANGE_FORM';
 export const LOCATION_PERMISSION_CHANGE = 'LOCATION_PERMISSION_CHANGE';
+export const LOCATION_CHANGE = 'LOCATION_CHANGE';
 
 const requestRoute = makeActionCreator(REQUEST_ROUTE, 'from', 'to');
 const receiveRouteSuccess = makeActionCreator(
@@ -56,7 +57,7 @@ const { PermissionsAndroid } = require('react-native'); // TODO ios
 
 export const changeLocationPermission = makeActionCreator(
   LOCATION_PERMISSION_CHANGE,
-  'value',
+  'access',
 );
 
 export function requestLocationPermission() {
@@ -84,3 +85,5 @@ export function checkLocationPermission() {
 }
 
 export const changeForm = makeActionCreator(CHANGE_FORM, 'data');
+
+export const changeLocation = makeActionCreator(LOCATION_CHANGE, 'coords');

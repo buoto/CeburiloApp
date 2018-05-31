@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     width: '100%',
-    marginTop: 10,
+    top: 10,
     zIndex: 100,
   },
 });

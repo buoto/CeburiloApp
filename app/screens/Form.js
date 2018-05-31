@@ -10,13 +10,13 @@ import LocationForm from '/app/components/LocationForm';
 const mapStateToProps = ({
   form: { start, end, touchedLocation },
   route: { isFetching },
-  locationAccess,
+  location: { access },
 }) => ({
   start,
   end,
   touchedLocation,
   isFetching,
-  locationAccess,
+  locationAccess: access,
 });
 
 const mapDispatchToProps = dispatch => ({

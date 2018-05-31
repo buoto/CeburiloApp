@@ -4,6 +4,7 @@ import {
   RECEIVE_ROUTE_SUCCESS,
   RECEIVE_ROUTE_ERROR,
   LOCATION_PERMISSION_CHANGE,
+  LOCATION_CHANGE,
   CHANGE_FORM,
 } from '/app/actions';
 
@@ -39,10 +40,12 @@ function form(state = {}, action) {
   }
 }
 
-function locationAccess(state = false, action) {
+function location(state = { coords: {} }, action) {
   switch (action.type) {
+    case LOCATION_CHANGE:
+      return { ...state, coords: action.coords };
     case LOCATION_PERMISSION_CHANGE:
-      return action.value;
+      return { ...state, access: action.access };
     default:
       return state;
   }
@@ -51,7 +54,7 @@ function locationAccess(state = false, action) {
 const ceburiloApp = combineReducers({
   route,
   form,
-  locationAccess,
+  location,
 });
 
 export default ceburiloApp;
