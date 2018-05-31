@@ -69,6 +69,7 @@ export default class LocationForm extends React.Component {
       onSubmit,
       locationAccess,
       requestPermission,
+      isFetching,
     } = this.props;
 
     const buttonVisible = start && end && !touchedLocation;
@@ -89,7 +90,12 @@ export default class LocationForm extends React.Component {
           requestPermission={requestPermission}
           locationAccess={locationAccess}
         />
-        {buttonVisible && <SearchButton onPress={() => onSubmit(start, end)} />}
+        {buttonVisible && (
+          <SearchButton
+            onPress={() => onSubmit(start, end)}
+            isFetching={isFetching}
+          />
+        )}
         <RouteMap
           onLongPress={({ nativeEvent: { coordinate } }) =>
             onChange({

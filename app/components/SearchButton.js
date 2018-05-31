@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { COLOR_PRIMARY } from '/app/config/styles';
@@ -14,13 +14,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const SearchButton = ({ onPress }) => (
+const SearchButton = ({ onPress, isFetching }) => (
   <View>
     <View style={styles.searchButton}>
-      <Button title="Znajdź trasę" color={COLOR_PRIMARY} onPress={onPress} />
+      <Button
+        title="Znajdź trasę"
+        color={COLOR_PRIMARY}
+        onPress={onPress}
+        disabled={isFetching}
+      />
+      {isFetching && <ActivityIndicator size="large" />}
     </View>
   </View>
 );
+
 SearchButton.propTypes = {
   onPress: PropTypes.func,
 };
