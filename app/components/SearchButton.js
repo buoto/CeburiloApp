@@ -30,10 +30,12 @@ const SearchButton = ({ onPress, isFetching }) => (
 
 SearchButton.propTypes = {
   onPress: PropTypes.func,
+  isFetching: PropTypes.bool,
 };
 
 SearchButton.defaultProps = {
   onPress: () => {},
+  isFetching: false,
 };
 
 export default SearchButton;
