@@ -26,7 +26,6 @@ const getStationColor = ({ maintenance, bikeCount }) => {
   if (maintenance) {
     return COLOR_PURPLE;
   }
-
   if (bikeCount === 0) {
     return COLOR_RED;
   }

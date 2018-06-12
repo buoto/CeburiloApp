@@ -7,6 +7,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SECONDARY_DARK,
 } from '/app/config/styles';
+import { coordinateType } from '/app/models';
 
 const fontSize = 20;
 
@@ -37,7 +38,7 @@ class NextStation extends React.Component {
   }
 
   render() {
-    const { stations, currentStation, setStation } = this.props;
+    const { stations, currentStation, setStation, completeRoute } = this.props;
     const nextAvailable = currentStation < stations.length;
 
     return (
@@ -62,7 +63,7 @@ class NextStation extends React.Component {
               style={styles.nextButton}
               color={COLOR_SECONDARY_DARK}
               title="Zakończ nawigację"
-              onPress={() => {}}
+              onPress={completeRoute}
             />
           )}
         </View>
@@ -75,11 +76,12 @@ NextStation.propTypes = {
   stations: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-      location: PropTypes.arrayOf(PropTypes.number),
+      location: coordinateType,
     }),
   ),
   currentStation: PropTypes.number,
   setStation: PropTypes.func,
+  completeRoute: PropTypes.func,
 };
 
 NextStation.defaultProps = {

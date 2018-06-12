@@ -37,6 +37,7 @@ function route(state = {}, action) {
     case RECEIVE_ROUTE_ERROR:
       return { ...state, isFetching: false, error: action.error };
     case SET_STATION:
+      console.log(action);
       return { ...state, currentStation: action.number };
     default:
       return state;

@@ -21,6 +21,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   onUserLocationChange: coords => dispatch(changeLocation(coords)),
   setStation: currentStation => dispatch(setStation(currentStation)),
+  completeRoute: (path, stations) => {},
 });
 
 const Navigate = connect(mapStateToProps, mapDispatchToProps)(NavigateRoute);

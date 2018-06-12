@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { coordinateType } from '/app/models';
 import { COLOR_WHITE } from '/app/config/styles';
 
 const fontSize = 24;
@@ -43,9 +44,7 @@ const RouteDetails = ({ path: { time, distance }, stations }) => (
 );
 
 RouteDetails.propTypes = {
-  stations: PropTypes.arrayOf(
-    PropTypes.shape({ location: PropTypes.arrayOf(PropTypes.number) }),
-  ),
+  stations: PropTypes.arrayOf(PropTypes.shape({ location: coordinateType })),
   path: PropTypes.shape({
     time: PropTypes.number,
     distance: PropTypes.number,

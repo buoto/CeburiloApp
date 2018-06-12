@@ -26,6 +26,19 @@ class NavigateRoute extends React.Component {
     onUserLocationChange: PropTypes.func,
     setStation: PropTypes.func,
   };
+
+  completeRoute = () => {
+    const {
+      path,
+      stations,
+      completeRoute,
+      navigation: { navigate },
+    } = this.props;
+
+    completeRoute(path, stations);
+    navigate('Trasy');
+  };
+
   componentDidMount() {
     const { onUserLocationChange, setStation } = this.props;
     this.watch = navigator.geolocation.watchPosition(
@@ -37,15 +50,16 @@ class NavigateRoute extends React.Component {
 
   componentWillUnmount() {
     const { setStation } = this.props;
-    setStation(undefined);
+    //setStation(undefined);
     navigator.geolocation.clearWatch(this.watch);
   }
   render() {
     const { start, ...props } = this.props;
+    //console.log(navigation);
 
     return (
       <View style={styles.container}>
-        <NextStation {...props} />
+        <NextStation {...props} completeRoute={this.completeRoute} />
         <RouteMap
           showsUserLocation
           followsUserLocation

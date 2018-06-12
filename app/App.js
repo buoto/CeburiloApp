@@ -10,7 +10,6 @@ import RootNavigator from './config/navigator';
 
 const store = createStore(ceburiloApp, applyMiddleware(thunk));
 store.dispatch(checkLocationPermission());
-store.dispatch(fetchStationsIfNeeded());
 
 const App = () => (
   <Provider store={store}>
