@@ -52,12 +52,10 @@ class RouteMap extends React.Component {
     const { end, stations, currentStation, userLocation } = this.props;
 
     if (userLocation && currentStation) {
-      let stationLocation = end;
-
-      if (currentStation < stations.length) {
-        const [latitude, longitude] = stations[currentStation].location;
-        stationLocation = { latitude, longitude };
-      }
+      const stationLocation =
+        currentStation < stations.length
+          ? stations[currentStation].location
+          : end;
 
       const fitToCoordinates = [userLocation, stationLocation];
       this.mapView.fitToCoordinates(fitToCoordinates, {
@@ -74,7 +72,6 @@ class RouteMap extends React.Component {
       touchedLocation,
       stations,
       initialRegion,
-      region,
       path: { points },
       ...props
     } = this.props;
@@ -85,8 +82,7 @@ class RouteMap extends React.Component {
           this.mapView = ref;
         }}
         style={styles.map}
-        initialRegion={region || initialRegion}
-        region={region}
+        initialRegion={initialRegion}
         loadingEnabled
         {...props}
       >
@@ -150,7 +146,6 @@ RouteMap.defaultProps = {
   userHeading: undefined,
   currentStation: undefined,
   initialRegion: defaultInitialRegion,
-  region: undefined,
   fitToElements: false,
   stations: [],
   path: {},
