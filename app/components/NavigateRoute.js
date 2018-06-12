@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { defaultInitialRegion } from '/app/config/consts';
 
 import RouteMap from '/app/components/RouteMap';
+import NextStation from '/app/components/NextStation';
 import { locationType } from '/app/models';
 
 const styles = StyleSheet.create({
@@ -13,24 +14,30 @@ const styles = StyleSheet.create({
   },
 });
 
-class RouteResult extends React.Component {
+class NavigateRoute extends React.Component {
   static defaultProps = {
     start: undefined,
     onUserLocationChange: () => {},
+    setStation: () => {},
   };
 
   static propTypes = {
     start: locationType,
     onUserLocationChange: PropTypes.func,
+    setStation: PropTypes.func,
   };
   componentDidMount() {
-    const { onUserLocationChange } = this.props;
-    this.watch = navigator.geolocation.watchPosition(({ coords }) =>
-      onUserLocationChange(coords),
+    const { onUserLocationChange, setStation } = this.props;
+    this.watch = navigator.geolocation.watchPosition(
+      ({ coords }) =>
+        coords.latitude && coords.longitude && onUserLocationChange(coords),
     ); // TODO handle error
+    setStation(0);
   }
 
   componentWillUnmount() {
+    const { setStation } = this.props;
+    setStation(undefined);
     navigator.geolocation.clearWatch(this.watch);
   }
   render() {
@@ -38,6 +45,7 @@ class RouteResult extends React.Component {
 
     return (
       <View style={styles.container}>
+        <NextStation {...props} />
         <RouteMap
           showsUserLocation
           followsUserLocation
@@ -52,6 +60,7 @@ class RouteResult extends React.Component {
             longitudeDelta: 0.015,
           }}
           provider="google"
+          start={start}
           {...props}
         />
       </View>
@@ -59,4 +68,4 @@ class RouteResult extends React.Component {
   }
 }
 
-export default RouteResult;
+export default NavigateRoute;

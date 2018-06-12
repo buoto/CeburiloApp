@@ -6,6 +6,7 @@ import {
   LOCATION_PERMISSION_CHANGE,
   LOCATION_CHANGE,
   CHANGE_FORM,
+  SET_STATION,
 } from '/app/actions';
 
 function route(state = {}, action) {
@@ -26,6 +27,8 @@ function route(state = {}, action) {
       };
     case RECEIVE_ROUTE_ERROR:
       return { ...state, isFetching: false, error: action.error };
+    case SET_STATION:
+      return { ...state, currentStation: action.number };
     default:
       return state;
   }

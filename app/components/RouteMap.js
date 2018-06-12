@@ -24,18 +24,41 @@ class RouteMap extends React.Component {
         this.mapView.fitToElements(true);
       });
     }
+    this.focusOnTarget();
   }
   componentDidUpdate() {
-    const { userHeading, userLocation } = this.props;
+    const { userLocation } = this.props;
     if (this.mapView) {
-      if (userLocation) {
+      if (userLocation && userLocation.latitude && userLocation.longitude) {
         this.mapView.animateToCoordinate(userLocation);
       }
-      if (userHeading) {
-        this.mapView.animateToBearing(userHeading);
-      }
+
+      // TODO: below lines cause error
+      // if (userHeading) {
+      // this.mapView.animateToBearing(userHeading);
+      // }
+      this.focusOnTarget();
     }
   }
+
+  focusOnTarget = () => {
+    const { end, stations, currentStation, userLocation } = this.props;
+
+    if (userLocation && currentStation) {
+      let stationLocation = end;
+
+      if (currentStation < stations.length) {
+        const [latitude, longitude] = stations[currentStation].location;
+        stationLocation = { latitude, longitude };
+      }
+
+      const fitToCoordinates = [userLocation, stationLocation];
+      this.mapView.fitToCoordinates(fitToCoordinates, {
+        edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+        animated: true,
+      });
+    }
+  };
 
   render() {
     const {
@@ -101,7 +124,8 @@ RouteMap.propTypes = {
     ),
   }),
   fitToElements: PropTypes.bool,
-  userHeading: PropTypes.number,
+  userHeading: PropTypes.number, // TODO: this could cause error
+  currentStation: PropTypes.number,
 };
 
 RouteMap.defaultProps = {
@@ -110,6 +134,7 @@ RouteMap.defaultProps = {
   touchedLocation: undefined,
   userLocation: undefined,
   userHeading: undefined,
+  currentStation: undefined,
   initialRegion: defaultInitialRegion,
   fitToElements: false,
   stations: [],

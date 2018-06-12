@@ -16,6 +16,7 @@ export const RECEIVE_ROUTE_ERROR = 'RECEIVE_ROUTE_ERROR';
 export const CHANGE_FORM = 'CHANGE_FORM';
 export const LOCATION_PERMISSION_CHANGE = 'LOCATION_PERMISSION_CHANGE';
 export const LOCATION_CHANGE = 'LOCATION_CHANGE';
+export const SET_STATION = 'SET_STATION';
 
 const requestRoute = makeActionCreator(REQUEST_ROUTE, 'from', 'to');
 const receiveRouteSuccess = makeActionCreator(
@@ -87,3 +88,5 @@ export function checkLocationPermission() {
 export const changeForm = makeActionCreator(CHANGE_FORM, 'data');
 
 export const changeLocation = makeActionCreator(LOCATION_CHANGE, 'coords');
+
+export const setStation = makeActionCreator(SET_STATION, 'number');
