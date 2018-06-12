@@ -19,6 +19,7 @@ export const RECEIVE_STATIONS_SUCCESS = 'RECEIVE_STATIONS_SUCCESS';
 export const RECEIVE_STATIONS_ERROR = 'RECEIVE_STATIONS_ERROR';
 
 export const CHANGE_FORM = 'CHANGE_FORM';
+export const COMPLETED_ROUTE = 'COMPLETED_ROUTE';
 export const LOCATION_PERMISSION_CHANGE = 'LOCATION_PERMISSION_CHANGE';
 export const LOCATION_CHANGE = 'LOCATION_CHANGE';
 export const SET_STATION = 'SET_STATION';
@@ -143,3 +144,9 @@ export const changeForm = makeActionCreator(CHANGE_FORM, 'data');
 export const changeLocation = makeActionCreator(LOCATION_CHANGE, 'coords');
 
 export const setStation = makeActionCreator(SET_STATION, 'number');
+
+export const completeRoute = makeActionCreator(
+  COMPLETED_ROUTE,
+  'path',
+  'stations',
+);

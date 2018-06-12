@@ -2,17 +2,16 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 import { createStackNavigator, createTabNavigator } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { COLOR_WHITE, COLOR_PRIMARY } from '/app/config/styles';
 
 import HeaderTitle from '/app/components/HeaderTitle';
 
-import Foo from '/app/screens/Foo';
+import CompletedStats from '/app/screens/CompletedStats';
 import Form from '/app/screens/Form';
-import StationsMap from '/app/screens/StationsMap';
-import Result from '/app/screens/Result';
 import Navigate from '/app/screens/Navigate';
+import Result from '/app/screens/Result';
+import StationsMap from '/app/screens/StationsMap';
 
 const styles = StyleSheet.create({
   tabs: {
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
 
 const TabNavigator = createTabNavigator(
   {
-    Statystyki: { screen: Foo },
+    Statystyki: { screen: CompletedStats },
     Trasy: { screen: Form },
     Stacje: { screen: StationsMap },
   },
@@ -55,7 +54,7 @@ const RootNavigator = createStackNavigator(
       navigationOptions: () => ({
         headerStyle: styles.header,
         headerTitle: HeaderTitle,
-        headerLeft: <Icon name="bars" size={20} style={styles.hamburger} />,
+        // headerLeft: <Icon name="bars" size={20} style={styles.hamburger} />,
       }),
     },
     Result: {

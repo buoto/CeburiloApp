@@ -1,4 +1,7 @@
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import {
   REQUEST_ROUTE,
   RECEIVE_ROUTE_SUCCESS,
@@ -9,6 +12,7 @@ import {
   LOCATION_PERMISSION_CHANGE,
   LOCATION_CHANGE,
   CHANGE_FORM,
+  COMPLETED_ROUTE,
   SET_STATION,
 } from '/app/actions';
 
@@ -37,7 +41,6 @@ function route(state = {}, action) {
     case RECEIVE_ROUTE_ERROR:
       return { ...state, isFetching: false, error: action.error };
     case SET_STATION:
-      console.log(action);
       return { ...state, currentStation: action.number };
     default:
       return state;
@@ -48,6 +51,8 @@ function form(state = {}, action) {
   switch (action.type) {
     case CHANGE_FORM:
       return { ...state, ...action.data };
+    case COMPLETED_ROUTE:
+      return {};
     default:
       return state;
   }
@@ -81,11 +86,34 @@ function stations(state = { isFetching: false, data: [] }, action) {
   }
 }
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['completedRoutes'], // only completedRoutes will be persisted
+};
+
+function completedRoutes(state = [], action) {
+  switch (action.type) {
+    case COMPLETED_ROUTE:
+      return [
+        ...state,
+        {
+          time: action.path.time,
+          distance: action.path.distance,
+          stations: action.stations,
+        },
+      ];
+    default:
+      return state;
+  }
+}
+
 const ceburiloApp = combineReducers({
   route,
   form,
   location,
   stations,
+  completedRoutes,
 });
 
-export default ceburiloApp;
+export default persistReducer(persistConfig, ceburiloApp);

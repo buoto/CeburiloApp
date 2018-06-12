@@ -5,7 +5,7 @@ import MapView, { Polyline } from 'react-native-maps';
 
 import ConditionalMarker from '/app/components/ConditionalMarker';
 import StationMarker from '/app/components/StationMarker';
-import { locationType, regionType } from '/app/models';
+import { locationType, regionType, coordinateType } from '/app/models';
 import { defaultInitialRegion } from '/app/config/consts';
 import {
   COLOR_SECONDARY_DARK,
@@ -118,19 +118,11 @@ RouteMap.propTypes = {
   initialRegion: regionType,
   stations: PropTypes.arrayOf(
     PropTypes.shape({
-      location: PropTypes.shape({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-      }),
+      location: coordinateType,
     }),
   ),
   path: PropTypes.shape({
-    points: PropTypes.arrayOf(
-      PropTypes.shape({
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
-      }),
-    ),
+    points: PropTypes.arrayOf(coordinateType),
   }),
   fitToElements: PropTypes.bool,
   userHeading: PropTypes.number, // TODO: this could cause error

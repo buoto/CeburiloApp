@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 80,
+    // marginRight: 80, TODO hamburger
   },
   headerText: {
     color: COLOR_WHITE,

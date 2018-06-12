@@ -19,24 +19,34 @@ class NavigateRoute extends React.Component {
     start: undefined,
     onUserLocationChange: () => {},
     setStation: () => {},
+    path: undefined,
+    completeRoute: () => {},
+    navigation: {},
+    stations: [],
   };
 
   static propTypes = {
     start: locationType,
     onUserLocationChange: PropTypes.func,
     setStation: PropTypes.func,
-  };
-
-  completeRoute = () => {
-    const {
-      path,
-      stations,
-      completeRoute,
-      navigation: { navigate },
-    } = this.props;
-
-    completeRoute(path, stations);
-    navigate('Trasy');
+    stations: PropTypes.arrayOf(
+      PropTypes.shape({
+        location: PropTypes.shape({
+          latitude: PropTypes.number,
+          longitude: PropTypes.number,
+        }),
+      }),
+    ),
+    path: PropTypes.shape({
+      points: PropTypes.arrayOf(
+        PropTypes.shape({
+          latitude: PropTypes.number,
+          longitude: PropTypes.number,
+        }),
+      ),
+    }),
+    completeRoute: PropTypes.func,
+    navigation: PropTypes.shape({ navigate: PropTypes.func }),
   };
 
   componentDidMount() {
@@ -49,13 +59,21 @@ class NavigateRoute extends React.Component {
   }
 
   componentWillUnmount() {
-    const { setStation } = this.props;
-    //setStation(undefined);
     navigator.geolocation.clearWatch(this.watch);
   }
+  completeRoute = () => {
+    const {
+      path,
+      stations,
+      completeRoute,
+      navigation: { navigate },
+    } = this.props;
+
+    completeRoute(path, stations);
+    navigate('Trasy');
+  };
   render() {
     const { start, ...props } = this.props;
-    //console.log(navigation);
 
     return (
       <View style={styles.container}>

@@ -88,6 +88,7 @@ NextStation.defaultProps = {
   stations: [],
   currentStation: 0,
   setStation: () => {},
+  completeRoute: () => {},
 };
 
 export default NextStation;

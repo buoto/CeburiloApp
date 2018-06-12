@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { changeLocation, setStation } from '/app/actions';
+import { changeLocation, setStation, completeRoute } from '/app/actions';
 
 import NavigateRoute from '/app/components/NavigateRoute';
 
@@ -21,7 +21,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   onUserLocationChange: coords => dispatch(changeLocation(coords)),
   setStation: currentStation => dispatch(setStation(currentStation)),
-  completeRoute: (path, stations) => {},
+  completeRoute: (path, stations) => dispatch(completeRoute(path, stations)),
 });
 
 const Navigate = connect(mapStateToProps, mapDispatchToProps)(NavigateRoute);
