@@ -116,7 +116,6 @@ RouteMap.propTypes = {
   touchedLocation: locationType,
   userLocation: locationType,
   initialRegion: regionType,
-  region: regionType,
   stations: PropTypes.arrayOf(
     PropTypes.shape({
       location: PropTypes.shape({
