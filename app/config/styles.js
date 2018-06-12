@@ -7,3 +7,8 @@ export const COLOR_PRIMARY_DARK = '#00766C';
 export const COLOR_SECONDARY = '#FFEB3B';
 export const COLOR_SECONDARY_LIGHT = '#FFFF72';
 export const COLOR_SECONDARY_DARK = '#C8B900';
+
+export const COLOR_RED = '#ff3d00';
+export const COLOR_BLUE = '#2979ff';
+export const COLOR_GREEN = '#00c853';
+export const COLOR_PURPLE = '#530053';

@@ -1,42 +1,33 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 
-import MapView, { Marker } from 'react-native-maps';
+import { fetchStationsIfNeeded } from '/app/actions';
+import { defaultInitialRegion } from '/app/config/consts';
 
-import { COLOR_WHITE } from '/app/config/styles';
+import Stations from '/app/components/Stations';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLOR_WHITE,
+const mapStateToProps = ({
+  stations: { data, isFetching },
+  location: {
+    coords: {
+      latitude = defaultInitialRegion.latitude,
+      longitude = defaultInitialRegion.longitude,
+    },
   },
-  map: {
-    flex: 1,
-    alignSelf: 'stretch',
+}) => ({
+  stations: data,
+  isFetching,
+  region: {
+    latitude,
+    longitude,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
   },
 });
 
-export default class StationsMap extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      region: {
-        latitude: 52.237049,
-        longitude: 21.017532,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.3,
-      },
-    };
-  }
-  render() {
-    const { region } = this.state;
+const mapDispatchToProps = dispatch => ({
+  refreshStations: () => dispatch(fetchStationsIfNeeded()),
+});
 
-    return (
-      <View style={styles.container}>
-        <MapView style={styles.map} initialRegion={region}>
-          <Marker coordinate={region} title="Warszawa" />
-        </MapView>
-      </View>
-    );
-  }
-}
+const StationsMap = connect(mapStateToProps, mapDispatchToProps)(Stations);
+
+export default StationsMap;

@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, InteractionManager } from 'react-native';
-import MapView, { Marker, Polyline } from 'react-native-maps';
+import MapView, { Polyline } from 'react-native-maps';
 
 import ConditionalMarker from '/app/components/ConditionalMarker';
+import StationMarker from '/app/components/StationMarker';
 import { locationType, regionType } from '/app/models';
 import { defaultInitialRegion } from '/app/config/consts';
+import {
+  COLOR_SECONDARY_DARK,
+  COLOR_RED,
+  COLOR_GREEN,
+} from '/app/config/styles';
 
 const styles = StyleSheet.create({
   map: {
@@ -26,6 +32,7 @@ class RouteMap extends React.Component {
     }
     this.focusOnTarget();
   }
+
   componentDidUpdate() {
     const { userLocation } = this.props;
     if (this.mapView) {
@@ -67,37 +74,38 @@ class RouteMap extends React.Component {
       touchedLocation,
       stations,
       initialRegion,
+      region,
       path: { points },
       ...props
     } = this.props;
+
     return (
       <MapView
         ref={ref => {
           this.mapView = ref;
         }}
         style={styles.map}
-        initialRegion={initialRegion}
+        initialRegion={region || initialRegion}
+        region={region}
         loadingEnabled
         {...props}
       >
         <ConditionalMarker
           coordinate={start}
           title="Start"
-          pinColor="#00c853"
+          pinColor={COLOR_GREEN}
         />
-        <ConditionalMarker coordinate={end} title="Koniec" pinColor="#ff3d00" />
+        <ConditionalMarker
+          coordinate={end}
+          title="Koniec"
+          pinColor={COLOR_RED}
+        />
         <ConditionalMarker
           coordinate={touchedLocation}
           title="Wybrana lokalizacja"
+          pinColor={COLOR_SECONDARY_DARK}
         />
-        {stations.map(({ location: [latitude, longitude], name, number }) => (
-          <Marker
-            key={number}
-            coordinate={{ longitude, latitude }}
-            title={`${name} (${number})`}
-            pinColor="#2979ff"
-          />
-        ))}
+        {stations.map(StationMarker)}
         {points && (
           <Polyline coordinates={points} strokeWidth={3} strokeColor="#00f" />
         )}
@@ -112,8 +120,14 @@ RouteMap.propTypes = {
   touchedLocation: locationType,
   userLocation: locationType,
   initialRegion: regionType,
+  region: regionType,
   stations: PropTypes.arrayOf(
-    PropTypes.shape({ location: PropTypes.arrayOf(PropTypes.number) }),
+    PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number,
+        longitude: PropTypes.number,
+      }),
+    }),
   ),
   path: PropTypes.shape({
     points: PropTypes.arrayOf(
@@ -136,6 +150,7 @@ RouteMap.defaultProps = {
   userHeading: undefined,
   currentStation: undefined,
   initialRegion: defaultInitialRegion,
+  region: undefined,
   fitToElements: false,
   stations: [],
   path: {},

@@ -3,6 +3,9 @@ import {
   REQUEST_ROUTE,
   RECEIVE_ROUTE_SUCCESS,
   RECEIVE_ROUTE_ERROR,
+  REQUEST_STATIONS,
+  RECEIVE_STATIONS_SUCCESS,
+  RECEIVE_STATIONS_ERROR,
   LOCATION_PERMISSION_CHANGE,
   LOCATION_CHANGE,
   CHANGE_FORM,
@@ -23,7 +26,13 @@ function route(state = {}, action) {
             ([longitude, latitude]) => ({ longitude, latitude }),
           ),
         },
-        stations: action.stations,
+        stations: action.stations.map(
+          ({ location: [latitude, longitude], name, number }) => ({
+            location: { latitude, longitude },
+            name,
+            number,
+          }),
+        ),
       };
     case RECEIVE_ROUTE_ERROR:
       return { ...state, isFetching: false, error: action.error };
@@ -54,10 +63,28 @@ function location(state = { coords: {} }, action) {
   }
 }
 
+function stations(state = { isFetching: false, data: [] }, action) {
+  switch (action.type) {
+    case REQUEST_STATIONS:
+      return { ...state, isFetching: true };
+    case RECEIVE_STATIONS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        data: action.stations,
+      };
+    case RECEIVE_STATIONS_ERROR:
+      return { ...state, isFetching: false, error: action.error };
+    default:
+      return state;
+  }
+}
+
 const ceburiloApp = combineReducers({
   route,
   form,
   location,
+  stations,
 });
 
 export default ceburiloApp;

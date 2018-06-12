@@ -13,6 +13,11 @@ function makeActionCreator(type, ...argNames) {
 export const REQUEST_ROUTE = 'REQUEST_ROUTE';
 export const RECEIVE_ROUTE_SUCCESS = 'RECEIVE_ROUTE_SUCCESS';
 export const RECEIVE_ROUTE_ERROR = 'RECEIVE_ROUTE_ERROR';
+
+export const REQUEST_STATIONS = 'REQUEST_STATIONS';
+export const RECEIVE_STATIONS_SUCCESS = 'RECEIVE_STATIONS_SUCCESS';
+export const RECEIVE_STATIONS_ERROR = 'RECEIVE_STATIONS_ERROR';
+
 export const CHANGE_FORM = 'CHANGE_FORM';
 export const LOCATION_PERMISSION_CHANGE = 'LOCATION_PERMISSION_CHANGE';
 export const LOCATION_CHANGE = 'LOCATION_CHANGE';
@@ -54,6 +59,54 @@ export function fetchRouteIfNeeded(from, to) {
   };
 }
 
+const requestStations = makeActionCreator(REQUEST_STATIONS);
+const receiveStationsSuccess = makeActionCreator(
+  RECEIVE_STATIONS_SUCCESS,
+  'stations',
+);
+const receiveStationsError = makeActionCreator(RECEIVE_STATIONS_ERROR, 'error');
+
+const projectNextbikeStations = ({
+  lat,
+  lng,
+  name,
+  number,
+  maintenance,
+  bikes,
+  bike_list, // eslint-disable-line
+}) => ({
+  location: {
+    latitude: lat,
+    longitude: lng,
+  },
+  name,
+  number,
+  maintenance,
+  bikeCount: bikes,
+  bikes: bike_list,
+});
+
+function fetchStations() {
+  return dispatch => {
+    dispatch(requestStations());
+
+    fetch('http://api.nextbike.net/maps/nextbike-official.json?city=210')
+      .then(response => response.json())
+      .then(({ countries: [{ cities: [{ places }] }] }) =>
+        dispatch(receiveStationsSuccess(places.map(projectNextbikeStations))),
+      )
+      .catch(error => dispatch(receiveStationsError(error)));
+  };
+}
+
+export function fetchStationsIfNeeded() {
+  return (dispatch, getState) => {
+    if (getState().stations.isFetching) {
+      return Promise.resolve();
+    }
+    return dispatch(fetchStations());
+  };
+}
 const { PermissionsAndroid } = require('react-native'); // TODO ios
 
 export const changeLocationPermission = makeActionCreator(
