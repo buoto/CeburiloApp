@@ -1,6 +1,6 @@
 {
   "name": "CeburiloApp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "devDependencies": {
     "babel-eslint": "^8.2.3",
