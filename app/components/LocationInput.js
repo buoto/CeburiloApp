@@ -56,18 +56,20 @@ class LocationInput extends Component {
   getCurrentLocation = () => {
     const { onChange, locationAccess, requestPermission } = this.props;
     if (locationAccess) {
-      RNGooglePlaces.getCurrentPlace().then(([place]) => onChange(place));
-      // .catch(error => console.log(error)); TODO handle error
+      RNGooglePlaces.getCurrentPlace()
+        .then(([place]) => onChange(place))
+        .catch(() => {}); // TODO handle
     } else {
       requestPermission();
     }
   };
   openSearchModal = () => {
     const { onChange } = this.props;
-    RNGooglePlaces.openAutocompleteModal(defaultInitialRegion).then(place => {
-      onChange(place);
-    });
-    // .catch(error => console.log(error)); TODO handle error
+    RNGooglePlaces.openAutocompleteModal(defaultInitialRegion)
+      .then(place => {
+        onChange(place);
+      })
+      .catch(() => {}); // probably user wanted it
   };
 
   render() {
